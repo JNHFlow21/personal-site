@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 920" role="img" aria-labelledby="title desc">
+  <title id="title">人的梦想是不会终止的</title>
+  <desc id="desc">更克制的黑白漫画风主视觉海报</desc>
+  <rect width="820" height="920" fill="#f6f1e5"/>
+  <rect x="46" y="54" width="728" height="812" fill="#f6f1e5" stroke="#000" stroke-width="10" transform="rotate(-2 410 460)"/>
+  <g opacity="0.1" stroke="#000" stroke-width="8" fill="none">
+    <path d="M110 146c70-26 140-38 206-34"/>
+    <path d="M514 154c74 4 134 18 190 42"/>
+    <path d="M114 796c54-18 110-28 170-30"/>
+  </g>
+  <g transform="translate(92 84) rotate(-3 318 258)">
+    <g font-family="'Noto Sans SC','Microsoft YaHei',sans-serif" font-weight="900" fill="#000">
+      <text x="124" y="210" font-size="104">人的梦想</text>
+      <text x="124" y="326" font-size="92">是不会终止的</text>
+    </g>
+    <path d="M438 122l66 52" stroke="#000" stroke-width="10" stroke-linecap="round"/>
+    <path d="M504 172l72 12-42-58" fill="none" stroke="#000" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <g fill="#000">
+    <rect x="116" y="592" width="118" height="214" transform="rotate(-6 116 592)"/>
+    <rect x="186" y="660" width="88" height="92" transform="rotate(-6 186 660)"/>
+    <rect x="376" y="650" width="92" height="178" transform="rotate(-24 376 650)"/>
+    <rect x="446" y="622" width="66" height="136" transform="rotate(-24 446 622)"/>
+    <rect x="632" y="524" width="92" height="234" transform="rotate(-2 632 524)"/>
+    <rect x="650" y="764" width="72" height="92" transform="rotate(-2 650 764)"/>
+  </g>
+  <g stroke="#000" stroke-width="8" fill="none" opacity="0.45">
+    <path d="M98 832c44-12 88-14 132-8"/>
+    <path d="M564 826c54-18 102-22 152-16"/>
+  </g>
+</svg>

@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AI 杰瑞斯 | 项目</title>
+    <title>AI 杰瑞斯 | AI 学习资料</title>
     <link
       rel="icon"
       href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23FFD93D'/%3E%3Crect x='6' y='6' width='52' height='52' fill='none' stroke='%23000' stroke-width='6'/%3E%3Ctext x='32' y='41' text-anchor='middle' font-family='Arial' font-size='22' font-weight='700'%3EAI%3C/text%3E%3C/svg%3E"
@@ -16,34 +16,37 @@
     />
     <link rel="stylesheet" href="./assets/styles.css" />
   </head>
-  <body data-page="projects">
+  <body data-page="learning">
     <div class="page-shell">
       <header class="site-header" data-nav></header>
       <main class="page">
-        <section class="page-intro panel panel-secondary" data-echo="PROJECTS">
+        <section class="page-intro panel panel-accent" data-echo="LEARN">
           <div class="ambient-cluster" aria-hidden="true">
             <span class="ambient-chip ambient-chip--small"></span>
-            <span class="ambient-orb ambient-orb--yellow"></span>
-            <span class="ambient-orb ambient-orb--white"></span>
+            <span class="ambient-orb ambient-orb--violet"></span>
+            <span class="ambient-orb ambient-orb--cream"></span>
           </div>
-          <p class="eyebrow">GitHub Projects</p>
-          <h1>真实项目，不放占位作品</h1>
+          <p class="eyebrow">AI Learning Library</p>
+          <h1>AI 学习资料</h1>
           <p>
-            这里整理了我 GitHub 上的 4 个公开项目。内容来自各项目 README 和仓库元数据，并尽量保留项目自己的截图或图标。
+            这里是我整理的 AI 学习资料聚合页。先放已经整理好的 GPT Image 2 Prompt 和几条系统教程，后面可以继续扩展 Claude、Codex、MCP、Agent 工作流等资料。
           </p>
         </section>
 
-        <section class="project-stack" data-project-grid></section>
+        <section class="section-block">
+          <div class="section-head">
+            <p class="eyebrow">Resources</p>
+            <h2>资料入口</h2>
+          </div>
+          <div class="learning-grid" data-learning-grid></div>
+        </section>
 
-        <section class="cta-panel panel panel-accent">
-          <div>
-            <p class="eyebrow">Next</p>
-            <h2>想看内容案例或 AI 学习资料？</h2>
+        <section class="section-block">
+          <div class="section-head">
+            <p class="eyebrow">Contact</p>
+            <h2>社交媒体和联系方式</h2>
           </div>
-          <div class="button-row">
-            <a class="neo-button neo-button--black" href="./signals.html">看已发布视频</a>
-            <a class="neo-button" href="./learning.html">AI 学习资料</a>
-          </div>
+          <div class="social-grid" data-contact-grid></div>
         </section>
       </main>
     </div>

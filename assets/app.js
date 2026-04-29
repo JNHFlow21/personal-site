@@ -18,9 +18,79 @@ const navItems = [
   { href: "./index.html", label: "首页", page: "home" },
   { href: "./signals.html", label: "视频", page: "signals" },
   { href: "./projects.html", label: "项目", page: "projects" },
-  { href: "./prompts.html", label: "Prompt", page: "prompts" },
-  { href: "./work-with-me.html", label: "合作", page: "work" },
-  { href: "./about.html", label: "关于", page: "about" },
+  { href: "./learning.html", label: "AI学习资料", page: "learning" },
+];
+
+const learningItems = [
+  {
+    tag: "GPT Image 2",
+    title: "GPT Image 2 Prompt 和玩法",
+    description: "24 个实测 Prompt，包含原始参考图、生成结果和完整可复制提示词。",
+    href: "./prompts.html",
+  },
+  {
+    tag: "Claude Code",
+    title: "Claude Code 完全指南",
+    description: "从安装、Skill、MCP、Plugin、Hooks 到降幻觉和节省 token 的完整教程。",
+    href: "https://www.bilibili.com/video/BV1No9jBoETQ/",
+  },
+  {
+    tag: "Hermes Agent",
+    title: "Hermes 本地 Gemma4 完全指南",
+    description: "讲解 Hermes Agent 与本地 Gemma4 的安装、设置和真实使用流程。",
+    href: "https://www.bilibili.com/video/BV1r1DkBJERU/",
+  },
+  {
+    tag: "Codex",
+    title: "Codex 从入门到上线作品集网站",
+    description: "用 Coding Agent 从 0 到上线一个真实个人网站的完整路径。",
+    href: "https://www.bilibili.com/video/BV1dQXrBVECR/",
+  },
+];
+
+const socialContacts = [
+  {
+    platform: "抖音",
+    handle: "risingjerrys",
+    description: "短视频教程和 AI 工具实战更新。",
+    href: "https://www.douyin.com/search/risingjerrys",
+    qr: "./assets/social/douyin-qr.jpg",
+  },
+  {
+    platform: "小红书",
+    handle: "18683746359",
+    description: "图文笔记、Prompt 玩法和 AI 实战教程。",
+    href: "https://www.xiaohongshu.com/search_result?keyword=18683746359",
+    qr: "./assets/social/xiaohongshu-qr.jpg",
+  },
+  {
+    platform: "视频号",
+    handle: "AI杰瑞斯",
+    description: "微信生态的视频内容入口。",
+    href: "",
+    qr: "./assets/social/wechat-channels-qr.jpg",
+  },
+  {
+    platform: "Bilibili",
+    handle: "AI杰瑞斯",
+    description: "长教程和系统性 AI 学习内容。",
+    href: "https://space.bilibili.com/13562739",
+    qr: "",
+  },
+  {
+    platform: "X / Twitter",
+    handle: "@risingjerrys",
+    description: "日常观点、英文区观察和项目更新。",
+    href: "https://x.com/risingjerrys",
+    qr: "",
+  },
+  {
+    platform: "GitHub",
+    handle: "JNHFlow21",
+    description: "开源项目和代码仓库。",
+    href: "https://github.com/JNHFlow21",
+    qr: "",
+  },
 ];
 
 const page = document.body.dataset.page;
@@ -55,13 +125,14 @@ function buildNav() {
       <a class="nav-brand" href="./index.html">${escapeHtml(profile.name)}</a>
       <nav class="nav-links">
         ${navItems
-          .map(
-            (item) => `
-              <a class="nav-link ${item.page === page ? "is-active" : ""}" href="${item.href}">
+          .map((item) => {
+            const active = item.page === page || (item.page === "learning" && page === "prompts");
+            return `
+              <a class="nav-link ${active ? "is-active" : ""}" href="${item.href}">
                 ${escapeHtml(item.label)}
               </a>
-            `,
-          )
+            `;
+          })
           .join("")}
       </nav>
     </div>
@@ -107,7 +178,7 @@ function videoCard(video, platformKey = "douyin", options = {}) {
     : "";
 
   return `
-    <${tag} class="${options.compact ? "mixed-card" : "platform-card"}" ${attrs}>
+    <${tag} class="${options.compact ? "mixed-card" : "platform-card video-card"}" ${attrs}>
       ${coverMarkup(platform, video.title, video.cover)}
       <div class="card-meta">
         <span>${escapeHtml(platform.name)}</span>
@@ -243,7 +314,7 @@ function renderSignals() {
   if (!stack) return;
 
   stack.innerHTML = platforms
-    .map((platform) => {
+    .map((platform, platformIndex) => {
       const items = videos.filter((video) => {
         if (platform.key === "wechatChannels") return Boolean(video.links.wechatChannelsId);
         return Boolean(video.links[platform.key]);
@@ -261,13 +332,59 @@ function renderSignals() {
             </div>
             ${action}
           </div>
-          <div class="platform-rail is-auto-scrolling" data-autoscroll>
-            ${items.map((item) => videoCard(item, platform.key)).join("")}
+          <div class="rail-shell">
+            <div class="rail-controls" aria-label="${escapeAttr(platform.name)}视频浏览控制">
+              <button class="rail-button rail-button--prev" type="button" aria-label="向左浏览${escapeAttr(platform.name)}视频" data-rail-target="rail-${platformIndex}" data-rail-dir="-1">←</button>
+              <button class="rail-button rail-button--next" type="button" aria-label="向右浏览${escapeAttr(platform.name)}视频" data-rail-target="rail-${platformIndex}" data-rail-dir="1">→</button>
+            </div>
+            <div class="platform-rail" id="rail-${platformIndex}" data-rail>
+              ${items.map((item) => videoCard(item, platform.key)).join("")}
+            </div>
           </div>
         </section>
       `;
     })
     .join("");
+}
+
+function renderLearning() {
+  const resourceGrid = document.querySelector("[data-learning-grid]");
+  if (resourceGrid) {
+    resourceGrid.innerHTML = learningItems
+      .map(
+        (item) => `
+          <a class="learning-card" href="${escapeAttr(item.href)}" ${item.href.startsWith("http") ? 'target="_blank" rel="noreferrer"' : ""}>
+            <span class="meta-pill">${escapeHtml(item.tag)}</span>
+            <h3>${escapeHtml(item.title)}</h3>
+            <p>${escapeHtml(item.description)}</p>
+          </a>
+        `,
+      )
+      .join("");
+  }
+
+  const contactGrid = document.querySelector("[data-contact-grid]");
+  if (contactGrid) {
+    contactGrid.innerHTML = socialContacts
+      .map(
+        (item) => `
+          <article class="social-card">
+            <div class="social-copy">
+              <span class="meta-pill">${escapeHtml(item.platform)}</span>
+              <h3>${escapeHtml(item.handle)}</h3>
+              <p>${escapeHtml(item.description)}</p>
+              ${item.href ? `<a class="neo-button neo-button--black" href="${escapeAttr(item.href)}" target="_blank" rel="noreferrer">打开链接</a>` : `<span class="platform-count">扫码关注</span>`}
+            </div>
+            ${
+              item.qr
+                ? `<img class="social-qr" src="${escapeAttr(item.qr)}" alt="${escapeAttr(item.platform)}二维码" loading="lazy" />`
+                : `<div class="social-no-qr">NO QR<br />LINK ONLY</div>`
+            }
+          </article>
+        `,
+      )
+      .join("");
+  }
 }
 
 function renderWork() {
@@ -451,6 +568,20 @@ function setupAutoScrollRails() {
   });
 }
 
+function setupRailControls() {
+  document.querySelectorAll("[data-rail-target]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const rail = document.getElementById(button.getAttribute("data-rail-target") ?? "");
+      if (!rail) return;
+      const direction = Number(button.getAttribute("data-rail-dir")) || 1;
+      rail.scrollBy({
+        left: direction * Math.min(rail.clientWidth * 0.9, 640),
+        behavior: "smooth",
+      });
+    });
+  });
+}
+
 function randomBetween(min, max) {
   return Math.random() * (max - min) + min;
 }
@@ -526,8 +657,10 @@ if (page === "signals") renderSignals();
 if (page === "work") renderWork();
 if (page === "projects") renderProjects();
 if (page === "prompts") renderPrompts();
+if (page === "learning") renderLearning();
 
 setupHeroTyping();
 setupRandomMotionSystem();
 setupAutoScrollRails();
+setupRailControls();
 setupCopyPrompts();

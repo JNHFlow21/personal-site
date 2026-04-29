@@ -1,15 +1,11 @@
 export const contentData = {
   "profile": {
     "name": "AI 杰瑞斯",
-    "handle": "@risingjerrys",
+    "handle": "risingjerrys",
     "avatar": "./assets/jerrys-avatar.jpg",
     "tagline": "专注 AI Agent、AI 工作流、内容系统和个人生产力的自媒体创作者。",
     "bio": "我把自己正在做的 AI 工具、内容实验、开源项目和业务方法论放在这里。网站内容来自真实发布视频、GitHub 项目和本机 Prompt 实测文档。",
     "links": [
-      {
-        "label": "X",
-        "href": "https://x.com/risingjerrys"
-      },
       {
         "label": "GitHub",
         "href": "https://github.com/JNHFlow21"
@@ -380,7 +376,6 @@ export const contentData = {
     "进入合作后明确交付物、节奏和可复用资产，不做空泛建议。"
   ],
   "contactItems": [
-    "X：@risingjerrys",
     "GitHub：JNHFlow21",
     "Bilibili：AI杰瑞斯"
   ],

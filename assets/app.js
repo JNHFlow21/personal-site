@@ -76,13 +76,6 @@ const socialContacts = [
     qr: "",
   },
   {
-    platform: "X / Twitter",
-    handle: "@risingjerrys",
-    description: "日常观点、英文区观察和项目更新。",
-    href: "https://x.com/risingjerrys",
-    qr: "",
-  },
-  {
     platform: "GitHub",
     handle: "JNHFlow21",
     description: "开源项目和代码仓库。",

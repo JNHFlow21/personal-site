@@ -383,6 +383,8 @@ export const contentData = {
     {
       "name": "Clawd",
       "repo": "https://github.com/JNHFlow21/clawd",
+      "download": "./assets/downloads/Clawd-0.1.0.dmg",
+      "downloadLabel": "直接下载 DMG",
       "language": "JavaScript / Swift macOS",
       "updated": "2026-04-28",
       "stars": 2,

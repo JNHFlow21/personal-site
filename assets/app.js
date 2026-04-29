@@ -451,7 +451,14 @@ function renderProjects() {
             <ul class="feature-list">
               ${project.highlights.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}
             </ul>
-            <a class="neo-button neo-button--black" href="${escapeAttr(project.repo)}" target="_blank" rel="noreferrer">查看 GitHub</a>
+            <div class="button-row project-actions">
+              ${
+                project.download
+                  ? `<a class="neo-button neo-button--black" href="${escapeAttr(project.download)}" download>${escapeHtml(project.downloadLabel || "直接下载")}</a>`
+                  : ""
+              }
+              <a class="neo-button" href="${escapeAttr(project.repo)}" target="_blank" rel="noreferrer">查看 GitHub</a>
+            </div>
           </div>
         </article>
       `,

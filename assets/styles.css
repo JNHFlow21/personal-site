@@ -446,6 +446,10 @@ img {
   margin-top: 22px;
 }
 
+.project-actions {
+  margin-top: 0;
+}
+
 .neo-button {
   display: inline-flex;
   align-items: center;

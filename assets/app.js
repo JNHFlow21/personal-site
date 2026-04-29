@@ -1,4 +1,5 @@
 import { contentData } from "./content-data.js";
+import { learningDocs } from "./learning-data.js";
 import { promptItems } from "./prompt-data.js";
 
 const {
@@ -19,6 +20,8 @@ const navItems = [
   { href: "./signals.html", label: "视频", page: "signals" },
   { href: "./projects.html", label: "项目", page: "projects" },
   { href: "./learning.html", label: "AI学习资料", page: "learning" },
+  { href: "./work-with-me.html", label: "合作", page: "work" },
+  { href: "./about.html", label: "关于", page: "about" },
 ];
 
 const learningItems = [
@@ -28,27 +31,22 @@ const learningItems = [
     description: "24 个实测 Prompt，包含原始参考图、生成结果和完整可复制提示词。",
     href: "./prompts.html",
   },
-  {
-    tag: "Claude Code",
-    title: "Claude Code 完全指南",
-    description: "从安装、Skill、MCP、Plugin、Hooks 到降幻觉和节省 token 的完整教程。",
-    href: "https://www.bilibili.com/video/BV1No9jBoETQ/",
-  },
-  {
-    tag: "Hermes Agent",
-    title: "Hermes 本地 Gemma4 完全指南",
-    description: "讲解 Hermes Agent 与本地 Gemma4 的安装、设置和真实使用流程。",
-    href: "https://www.bilibili.com/video/BV1r1DkBJERU/",
-  },
-  {
-    tag: "Codex",
-    title: "Codex 从入门到上线作品集网站",
-    description: "用 Coding Agent 从 0 到上线一个真实个人网站的完整路径。",
-    href: "https://www.bilibili.com/video/BV1dQXrBVECR/",
-  },
+  ...learningDocs.map((doc) => ({
+    tag: doc.tag,
+    title: doc.title,
+    description: doc.summary,
+    href: doc.href,
+  })),
 ];
 
 const socialContacts = [
+  {
+    platform: "微信",
+    handle: "risingjerrys",
+    description: "添加微信交流合作、课程和 AI 工作流问题。",
+    href: "",
+    qr: "./assets/social/wechat-qr.jpg",
+  },
   {
     platform: "抖音",
     handle: "risingjerrys",
@@ -126,7 +124,7 @@ function buildNav() {
       <nav class="nav-links">
         ${navItems
           .map((item) => {
-            const active = item.page === page || (item.page === "learning" && page === "prompts");
+            const active = item.page === page || (item.page === "learning" && (page === "prompts" || page === "learning-doc"));
             return `
               <a class="nav-link ${active ? "is-active" : ""}" href="${item.href}">
                 ${escapeHtml(item.label)}
@@ -362,29 +360,47 @@ function renderLearning() {
       )
       .join("");
   }
+}
 
-  const contactGrid = document.querySelector("[data-contact-grid]");
-  if (contactGrid) {
-    contactGrid.innerHTML = socialContacts
-      .map(
-        (item) => `
-          <article class="social-card">
-            <div class="social-copy">
-              <span class="meta-pill">${escapeHtml(item.platform)}</span>
-              <h3>${escapeHtml(item.handle)}</h3>
-              <p>${escapeHtml(item.description)}</p>
-              ${item.href ? `<a class="neo-button neo-button--black" href="${escapeAttr(item.href)}" target="_blank" rel="noreferrer">打开链接</a>` : `<span class="platform-count">扫码关注</span>`}
-            </div>
-            ${
-              item.qr
-                ? `<img class="social-qr" src="${escapeAttr(item.qr)}" alt="${escapeAttr(item.platform)}二维码" loading="lazy" />`
-                : `<div class="social-no-qr">NO QR<br />LINK ONLY</div>`
-            }
-          </article>
-        `,
-      )
-      .join("");
-  }
+function contactCard(item) {
+  return `
+    <article class="social-card">
+      <div class="social-copy">
+        <span class="meta-pill">${escapeHtml(item.platform)}</span>
+        <h3>${escapeHtml(item.handle)}</h3>
+        <p>${escapeHtml(item.description)}</p>
+        ${item.href ? `<a class="neo-button neo-button--black" href="${escapeAttr(item.href)}" target="_blank" rel="noreferrer">打开链接</a>` : `<span class="platform-count">扫码关注</span>`}
+      </div>
+      ${
+        item.qr
+          ? `<img class="social-qr" src="${escapeAttr(item.qr)}" alt="${escapeAttr(item.platform)}二维码" loading="lazy" />`
+          : `<div class="social-no-qr">NO QR<br />LINK ONLY</div>`
+      }
+    </article>
+  `;
+}
+
+function renderAbout() {
+  const contactGrid = document.querySelector("[data-about-contact-grid]");
+  if (contactGrid) contactGrid.innerHTML = socialContacts.map((item) => contactCard(item)).join("");
+}
+
+function renderLearningArticle() {
+  const key = document.body.dataset.docKey;
+  const doc = learningDocs.find((item) => item.key === key);
+  if (!doc) return;
+
+  const title = document.querySelector("[data-learning-doc-title]");
+  if (title) title.textContent = doc.title;
+
+  const tag = document.querySelector("[data-learning-doc-tag]");
+  if (tag) tag.textContent = doc.tag;
+
+  const summary = document.querySelector("[data-learning-doc-summary]");
+  if (summary) summary.textContent = doc.summary;
+
+  const article = document.querySelector("[data-learning-article]");
+  if (article) article.innerHTML = doc.html;
 }
 
 function renderWork() {
@@ -658,6 +674,8 @@ if (page === "work") renderWork();
 if (page === "projects") renderProjects();
 if (page === "prompts") renderPrompts();
 if (page === "learning") renderLearning();
+if (page === "learning-doc") renderLearningArticle();
+if (page === "about") renderAbout();
 
 setupHeroTyping();
 setupRandomMotionSystem();
